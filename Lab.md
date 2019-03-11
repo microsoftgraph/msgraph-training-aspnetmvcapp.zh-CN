@@ -1,0 +1,3 @@
+# <a name="build-aspnet-mvc-apps-with-microsoft-graph"></a><span data-ttu-id="45ac9-101">使用 Microsoft Graph 生成 ASP.NET MVC 应用</span><span class="sxs-lookup"><span data-stu-id="45ac9-101">Build ASP.NET MVC apps with Microsoft Graph</span></span>
+
+<span data-ttu-id="45ac9-102">此内容已移至[https://docs.microsoft.com/graph/training/aspnet-tutorial](https://docs.microsoft.com/graph/training/aspnet-tutorial)。</span><span class="sxs-lookup"><span data-stu-id="45ac9-102">This content has been moved to [https://docs.microsoft.com/graph/training/aspnet-tutorial](https://docs.microsoft.com/graph/training/aspnet-tutorial).</span></span> <span data-ttu-id="45ac9-103">请更新您的书签。</span><span class="sxs-lookup"><span data-stu-id="45ac9-103">Please update your bookmark.</span></span>
