@@ -30,14 +30,15 @@
 
 |        角色         |                            作者 (s)                             |
 | -------------------- | ---------------------------------------------------------------- |
-| 实验室手册/幻灯片 | Andrew Connell (Microsoft MVP, Voitanos) @andrewconnell          |
-| QA                   | Julie Turner (Microsoft MVP, Sympraxis 咨询) @juliemturner |
-| 承办人/支持    | Yina Arenas (Microsoft) @yinaa                                   |
+| 实验室手册/幻灯片 | Andrew Connell (Microsoft MVP, Voitanos)@andrewconnell          |
+| QA                   | Julie Turner (Microsoft MVP, Sympraxis 咨询)@juliemturner |
+| 承办人/支持    | Yina Arenas (Microsoft)@yinaa                                   |
 
 ## <a name="version-history"></a>版本历史记录
 
 | 版本 |        日期        |                       注释                       |
 | ------- | ------------------ | ---------------------------------------------------- |
+| 1.7     | 2018年4月4日      | 2019Q3 内容刷新                               |
 | 1.6     | 2018年12月18日  | 2019Q2 内容刷新                               |
 | 1.5     | 2018 年 11 月 27 日  | 载入到 docs.microsoft.com/graph                |
 | 1.4     | 2018 年 9 月 12 日 | 2019Q1 内容刷新                               |

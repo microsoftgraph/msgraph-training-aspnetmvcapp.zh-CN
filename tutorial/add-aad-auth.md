@@ -13,7 +13,7 @@
 </appSettings>
 ```
 
-将`YOUR_APP_ID_HERE`替换为应用程序注册门户中的应用程序 ID, `YOUR_APP_PASSWORD_HERE`并将替换为您生成的密码。 此外, 请务必修改的`PORT`值, 以`ida:RedirectUri`匹配您的应用程序的 URL。
+将`YOUR_APP_ID_HERE`替换为应用程序注册门户中的应用程序 ID, `YOUR_APP_PASSWORD_HERE`并将替换为您生成的客户端密码。 如果你的客户端密码包含任何`&`& (), 请务必将其`&amp;`替换`PrivateSettings.config`为。 此外, 请务必修改的`PORT`值, 以`ida:RedirectUri`匹配您的应用程序的 URL。
 
 > [!IMPORTANT]
 > 如果您使用的是源代码管理 (如 git), 现在可以从源代码管理中排除`PrivateSettings.config`该文件, 以避免无意中泄漏您的应用程序 ID 和密码。
@@ -342,11 +342,6 @@ namespace graph_tutorial.TokenStorage
         private void Persist()
         {
             sessionLock.EnterReadLock();
-
-            // Optimistically set HasStateChanged to false.
-            // We need to do it early to avoid losing changes made by a concurrent thread.
-            tokenCache.HasStateChanged = false;
-
             httpContext.Session[cacheId] = tokenCache.Serialize();
             sessionLock.ExitReadLock();
         }
@@ -362,7 +357,7 @@ namespace graph_tutorial.TokenStorage
         private void AfterAccessNotification(TokenCacheNotificationArgs args)
         {
             // if the access operation resulted in a cache update
-            if (tokenCache.HasStateChanged)
+            if (args.HasStateChanged)
             {
                 Persist();
             }
