@@ -2,7 +2,7 @@
 
 在本练习中, 你将扩展上一练习中的应用程序, 以支持 Azure AD 的身份验证。 若要获取所需的 OAuth 访问令牌以调用 Microsoft Graph, 这是必需的。 在此步骤中, 将 OWIN 中间件和[Microsoft 身份验证库](https://www.nuget.org/packages/Microsoft.Identity.Client/)库集成到应用程序中。
 
-右键单击 "解决方案资源管理器" 中的 "**教程**" 项目, 然后选择 "**添加 > 新建项目 ...**"。选择 " **Web 配置文件**", 命名`PrivateSettings.config`该文件, 然后选择 "**添加**"。 用以下代码替换它的全部内容。
+右键单击 "解决方案资源管理器" 中的 "**教程**" 项目, 然后选择 "**添加 > 新建项目 .。。**"。选择 " **Web 配置文件**", 命名`PrivateSettings.config`该文件, 然后选择 "**添加**"。 用以下代码替换它的全部内容。
 
 ```xml
 <appSettings>
@@ -26,7 +26,7 @@
 
 ## <a name="implement-sign-in"></a>实施登录
 
-首先, 初始化 OWIN 中间件以使用应用程序的 Azure AD 身份验证。 右键单击 "解决方案资源管理器" 中的 " **App_Start** " 文件夹, 然后选择 "**添加 > 类 ...**"。命名该文件`Startup.Auth.cs` , 然后选择 "**添加**"。 将整个内容替换为以下代码。
+首先, 初始化 OWIN 中间件以使用应用程序的 Azure AD 身份验证。 右键单击 "解决方案资源管理器" 中的 " **App_Start** " 文件夹, 然后选择 "**添加 > 类 .。。**"。命名该文件`Startup.Auth.cs` , 然后选择 "**添加**"。 将整个内容替换为以下代码。
 
 ```cs
 using Microsoft.Identity.Client;
@@ -170,7 +170,7 @@ public ActionResult Error(string message, string debug)
 }
 ```
 
-添加控制器以处理登录。 右键单击 "解决方案资源管理器" 中的 "**控制器**" 文件夹, 然后选择 "**添加 > 控制器 ...**"。选择 " **MVC 5 控制器-空**", 然后选择 "**添加**"。 命名控制器`AccountController` , 然后选择 "**添加**"。 将文件的全部内容替换为以下代码。
+添加控制器以处理登录。 右键单击 "解决方案资源管理器" 中的 "**控制器**" 文件夹, 然后选择 "**添加 > 控制器 .。。**"。选择 " **MVC 5 控制器-空**", 然后选择 "**添加**"。 命名控制器`AccountController` , 然后选择 "**添加**"。 将文件的全部内容替换为以下代码。
 
 ```cs
 using Microsoft.Owin.Security;
@@ -215,7 +215,7 @@ namespace graph_tutorial.Controllers
 
 ### <a name="get-user-details"></a>获取用户详细信息
 
-首先, 创建一个新文件来保存所有 Microsoft Graph 调用。 右键单击 "解决方案资源管理器" 中的 "**流程图-教程**" 文件夹, 然后选择 "**添加 > 新文件夹**"。 将文件夹`Helpers`命名为。 右键单击此新文件夹, 然后选择 "**添加 > 类 ...**"。命名该文件`GraphHelper.cs` , 然后选择 "**添加**"。 将此文件的内容替换为以下代码。
+首先, 创建一个新文件来保存所有 Microsoft Graph 调用。 右键单击 "解决方案资源管理器" 中的 "**流程图-教程**" 文件夹, 然后选择 "**添加 > 新文件夹**"。 将文件夹`Helpers`命名为。 右键单击此新文件夹, 然后选择 "**添加 _GT_ 类 .。。**"。命名该文件`GraphHelper.cs` , 然后选择 "**添加**"。 将此文件的内容替换为以下代码。
 
 ```cs
 using Microsoft.Graph;
@@ -242,7 +242,7 @@ namespace graph_tutorial.Helpers
 }
 ```
 
-这将`GetUserDetails`实现使用 Microsoft Graph SDK 调用`/me`终结点并返回结果的函数。
+这将`GetUserDetails`实现使用 MICROSOFT Graph SDK 调用`/me`终结点并返回结果的函数。
 
 更新中`OnAuthorizationCodeReceivedAsync` `App_Start/Startup.Auth.cs`的方法以调用此函数。 首先, 将以下`using`语句添加到文件顶部。
 
@@ -276,7 +276,7 @@ try
 
 现在, 您可以获取令牌, 现在是时候实现将它们存储在应用程序中的方法了。 由于这是一个示例应用程序, 我们将使用此会话来存储令牌。 实际应用程序将使用更可靠的安全存储解决方案, 就像数据库一样。
 
-右键单击 "解决方案资源管理器" 中的 "**流程图-教程**" 文件夹, 然后选择 "**添加 > 新文件夹**"。 将文件夹`TokenStorage`命名为。 右键单击此新文件夹, 然后选择 "**添加 > 类 ...**"。命名该文件`SessionTokenStore.cs` , 然后选择 "**添加**"。 将此文件的内容替换为以下代码。
+右键单击 "解决方案资源管理器" 中的 "**流程图-教程**" 文件夹, 然后选择 "**添加 > 新文件夹**"。 将文件夹`TokenStorage`命名为。 右键单击此新文件夹, 然后选择 "**添加 _GT_ 类 .。。**"。命名该文件`SessionTokenStore.cs` , 然后选择 "**添加**"。 将此文件的内容替换为以下代码。
 
 ```cs
 using Microsoft.Identity.Client;

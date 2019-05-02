@@ -20,10 +20,10 @@
 
 <!-- 🚨 HEY! HERE BEGINS THE INTERESTING STUFF 🚨 -->
 
-## <a name="wut-poppers"></a>Wut？ Poppers？
+## <a name="wut-poppers"></a>Wut? Poppers?
 
-popper 是屏幕上的一个元素, 该元素从应用程序的自然流中 "弹出"。  
-poppers 的常见示例包括工具提示、popovers 和下拉。
+Popper 是屏幕上的一个元素, 该元素从应用程序的自然流中 "弹出"。  
+Poppers 的常见示例包括工具提示、popovers 和下拉。
 
 
 ## <a name="so-yet-another-tooltip-library"></a>那么, 还有另一个工具提示库？
@@ -64,7 +64,7 @@ Popper 有零个依赖项。 无 jQuery, 无 LoDash, nothing。
 
 
 ## <a name="installation"></a>安装
-Popper 在以下包管理者和 cdn 中可用:
+Popper 在以下包管理者和 Cdn 中可用:
 
 | Source |                                                                                  |
 |:-------|:---------------------------------------------------------------------------------|
@@ -81,7 +81,7 @@ Tooltip 也是这样:
 |:-------|:---------------------------------------------------------------------------------|
 | npm    | `npm install tooltip.js --save`                                                  |
 | yarn   | `yarn add tooltip.js`                                                            |
-| Bower * | `bower install tooltip.js=https://unpkg.com/tooltip.js --save`                   |
+| Bower* | `bower install tooltip.js=https://unpkg.com/tooltip.js --save`                   |
 | unpkg  | [`https://unpkg.com/tooltip.js`](https://unpkg.com/tooltip.js)                   |
 | cdnjs  | [`https://cdnjs.com/libraries/popper.js`](https://cdnjs.com/libraries/popper.js) |
 
@@ -100,7 +100,7 @@ Popper 当前附带了3个目标: UMD、ESM 和 ESNext。
 
 ## <a name="usage"></a>用法
 
-给定现有的 popper DOM 节点, 请求 popper 将其放置在其按钮旁边
+给定现有的 popper DOM 节点, 请求 Popper 将其放置在其按钮旁边
 
 ```js
 var reference = document.querySelector('.my-button');
@@ -180,7 +180,7 @@ https://github.com/FezVrasta/popper.js/issues/62
 
 ### <a name="performances"></a>性能
 
-Popper 的性能非常高。 计算 popper 的位置 (在具有 3.5 g GHz Intel Core i5 的 iMac 上) 时, 通常需要0.5 毫秒的时间。  
+Popper 的性能非常高。 计算 popper 的位置 (在具有 3。5 G GHz Intel Core i5 的 iMac 上) 时, 通常需要0。5毫秒的时间。  
 这意味着它不会导致任何[jank](https://www.chromium.org/developers/how-tos/trace-event-profiling-tool/anatomy-of-jank), 从而导致用户平稳的用户体验。
 
 ## <a name="notes"></a>注释

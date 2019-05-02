@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-在此演示中, 您将把 Microsoft Graph 合并到应用程序中。 对于此应用程序, 您将使用[microsoft graph 客户端库进行 .net](https://github.com/microsoftgraph/msgraph-sdk-dotnet)以调用 microsoft graph。
+在此演示中, 您将把 Microsoft Graph 合并到应用程序中。 对于此应用程序, 您将使用[Microsoft Graph 客户端库进行 .net](https://github.com/microsoftgraph/msgraph-sdk-dotnet)以调用 microsoft graph。
 
 ## <a name="get-calendar-events-from-outlook"></a>从 Outlook 获取日历事件
 
@@ -73,7 +73,7 @@ private static GraphServiceClient GetAuthenticatedClient()
   - `Select`函数将为每个事件返回的字段限制为仅供视图实际使用的字段。
   - `OrderBy`函数按其创建日期和时间对结果进行排序, 最新项目最先开始。
 
-现在, 为日历视图创建一个控制器。 右键单击 "解决方案资源管理器" 中的 "**控制器**" 文件夹, 然后选择 "**添加 > 控制器 ...**"。选择 " **MVC 5 控制器-空**", 然后选择 "**添加**"。 命名控制器`CalendarController` , 然后选择 "**添加**"。 将新文件的全部内容替换为以下代码。
+现在, 为日历视图创建一个控制器。 右键单击 "解决方案资源管理器" 中的 "**控制器**" 文件夹, 然后选择 "**添加 > 控制器 .。。**"。选择 " **MVC 5 控制器-空**", 然后选择 "**添加**"。 命名控制器`CalendarController` , 然后选择 "**添加**"。 将新文件的全部内容替换为以下代码。
 
 ```cs
 using graph_tutorial.Helpers;
@@ -99,7 +99,7 @@ namespace graph_tutorial.Controllers
 
 ## <a name="display-the-results"></a>显示结果
 
-现在, 您可以添加一个视图, 以对用户更友好的方式显示结果。 在 "解决方案资源管理器" 中, 右键单击 "**视图/日历**" 文件夹, 然后选择 "**添加 > 视图 ...**"。为视图`Index`命名, 然后选择 "**添加**"。 将新文件的全部内容替换为以下代码。
+现在, 您可以添加一个视图, 以对用户更友好的方式显示结果。 在 "解决方案资源管理器" 中, 右键单击 "**视图/日历**" 文件夹, 然后选择 "**添加 > 视图 .。。**"。为视图`Index`命名, 然后选择 "**添加**"。 将新文件的全部内容替换为以下代码。
 
 ```html
 @model IEnumerable<Microsoft.Graph.Event>

@@ -1,9 +1,9 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-打开 Visual Studio, 然后选择 " **File > New > Project**"。 在 "**新建项目**" 对话框中, 执行以下操作:
+打开 Visual Studio, 然后选择 " **File _GT_ New _GT_ Project**"。 在 "**新建项目**" 对话框中, 执行以下操作:
 
-1. 在**Visual c # > Web**中选择 "模板 >"。
-1. 选择 " **ASP.NET Web 应用程序 (.net Framework)**"。
+1. 在**Visual c # _GT_ Web**中选择 "模板 >"。
+1. 选择 " **ASP.NET Web 应用程序 (.Net Framework)**"。
 1. 输入**graph-** 项目名称教程。
 
 ![Visual Studio 2017 "新建项目" 对话框](./images/vs-new-project-01.png)
@@ -11,9 +11,9 @@
 > [!NOTE]
 > 确保为在这些实验室说明中指定的 Visual Studio 项目输入完全相同的名称。 Visual Studio 项目名称将成为代码中的命名空间的一部分。 这些指令中的代码取决于与这些说明中指定的 Visual Studio 项目名称匹配的命名空间。 如果使用其他项目名称, 则代码将不会编译, 除非您调整所有命名空间以匹配您在创建项目时输入的 Visual Studio 项目名称。
 
-选择“**确定**”。 在 "**新建 ASP.NET Web 应用程序项目**" 对话框中, 选择 " **MVC** " (在 " **ASP.NET 4.7.2 模板**" 下) 并选择 **"确定"**。
+选择“确定”****。 在 "**新建 ASP.NET Web 应用程序项目**" 对话框中, 选择 " **MVC** " (在 " **ASP.NET 4.7.2 模板**" 下) 并选择 **"确定"**。
 
-按**F5**或选择 "**调试" > "开始调试**"。 如果一切正常, 则默认浏览器应打开并显示一个默认的 ASP.NET 页面。
+按**F5**或选择 "**调试" _GT_ "开始调试**"。 如果一切正常, 则默认浏览器应打开并显示一个默认的 ASP.NET 页面。
 
 在继续之前, 请更新`bootstrap` NuGet 包, 并安装稍后将使用的一些其他 NuGet 包。
 
@@ -21,9 +21,9 @@
 - [Owin](https://www.nuget.org/packages/Microsoft.Owin.Security.OpenIdConnect/)用于执行与 Azure 的 OpenID 连接身份验证的 OpenIdConnect。
 - [Owin](https://www.nuget.org/packages/Microsoft.Owin.Security.Cookies/)启用基于 cookie 的身份验证的 cookie。
 - 用于请求和管理访问令牌的 " [Microsoft 身份" 客户端](https://www.nuget.org/packages/Microsoft.Identity.Client/)。
-- 用于调用 microsoft Graph 的[microsoft](https://www.nuget.org/packages/Microsoft.Graph/) graph。
+- 用于调用 Microsoft Graph 的[microsoft](https://www.nuget.org/packages/Microsoft.Graph/) graph。
 
-选择 "**工具 > NuGet 包管理器 > 程序包管理器控制台**"。 在 "程序包管理器控制台" 中, 输入以下命令。
+选择 "**工具 _GT_ NuGet 包管理器 _GT_ 程序包管理器控制台**"。 在 "程序包管理器控制台" 中, 输入以下命令。
 
 ```Powershell
 Update-Package bootstrap
@@ -40,7 +40,7 @@ Install-Package Microsoft.Graph -Version 1.11.0
 
 首先, 为错误消息创建一个简单的模型。 您将使用此模型在应用程序的视图中闪烁错误消息。
 
-右键单击 "解决方案资源管理器" 中的 "**模型**" 文件夹, 然后选择 "**添加 > 类 ...**"。命名该类`Alert` , 然后选择 "**添加**"。 在中`Alert.cs`添加以下代码。
+右键单击 "解决方案资源管理器" 中的 "**模型**" 文件夹, 然后选择 "**添加 > 类 .。。**"。命名该类`Alert` , 然后选择 "**添加**"。 在中`Alert.cs`添加以下代码。
 
 ```cs
 namespace graph_tutorial.Models
@@ -197,7 +197,7 @@ body {
 
 现在, 添加一个 helper 函数来创建`Alert`并将其传递到视图。 为使我们创建的任何控制器易于使用, 请定义一个基本控制器类。
 
-右键单击 "解决方案资源管理器" 中的 "**控制器**" 文件夹, 然后选择 "**添加 > 控制器 ...**"。选择 " **MVC 5 控制器-空**", 然后选择 "**添加**"。 命名控制器`BaseController` , 然后选择 "**添加**"。 用以下代码替换 `BaseController.cs` 的内容。
+右键单击 "解决方案资源管理器" 中的 "**控制器**" 文件夹, 然后选择 "**添加 > 控制器 .。。**"。选择 " **MVC 5 控制器-空**", 然后选择 "**添加**"。 命名控制器`BaseController` , 然后选择 "**添加**"。 用以下代码替换 `BaseController.cs` 的内容。
 
 ```cs
 using graph_tutorial.Models;

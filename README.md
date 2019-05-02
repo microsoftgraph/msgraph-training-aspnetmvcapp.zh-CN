@@ -1,10 +1,10 @@
-# <a name="microsoft-graph-training-module---build-mvc-apps-with-the-microsoft-graph-net-sdk"></a>microsoft graph 培训模块-使用 Microsoft graph .net SDK 生成 MVC 应用
+# <a name="microsoft-graph-training-module---build-mvc-apps-with-the-microsoft-graph-net-sdk"></a>Microsoft Graph 培训模块-使用 Microsoft Graph .NET SDK 生成 MVC 应用
 
-本模块将介绍如何在创建 ASP.NET MVC web 应用程序以访问 Office 365 中的数据时使用 Microsoft Graph .net SDK。
+本模块将介绍如何在创建 ASP.NET MVC web 应用程序以访问 Office 365 中的数据时使用 Microsoft Graph .NET SDK。
 
-## <a name="lab---build-mvc-apps-with-the-microsoft-graph-net-sdk"></a>使用 Microsoft Graph .net SDK 生成 MVC 应用程序 (实验室)
+## <a name="lab---build-mvc-apps-with-the-microsoft-graph-net-sdk"></a>使用 Microsoft Graph .NET SDK 生成 MVC 应用程序 (实验室)
 
-在此实验室中, 将创建一个 ASP.NET MVC 应用程序, 并使用 Microsoft Graph .net SDK 访问 Office 365 中的数据, 并使用 azure Active Directory (azure AD) 进行身份验证 & 授权。
+在此实验室中, 将创建一个 ASP.NET MVC 应用程序, 并使用 Microsoft Graph .NET SDK 访问 Office 365 中的数据, 并使用 Azure Active Directory (Azure AD) 进行身份验证 & 授权。
 
 - [ASP.NET Microsoft Graph 教程](https://docs.microsoft.com/graph/training/aspnet-tutorial)
 
@@ -24,15 +24,15 @@
 
 ## <a name="watch-the-module"></a>观看模块
 
-此模块已记录并在 Office 开发 YouTube 频道中可用:[使用 Microsoft Graph .net SDK 生成 MVC 应用](https://youtu.be/87_gpuFg1Wo)
+此模块已记录并在 Office 开发 YouTube 频道中可用:[使用 Microsoft Graph .NET SDK 生成 MVC 应用](https://youtu.be/87_gpuFg1Wo)
 
 ## <a name="contributors"></a>参与者
 
 |        角色         |                            作者 (s)                             |
 | -------------------- | ---------------------------------------------------------------- |
-| 实验室手册/幻灯片 | Andrew Connell (Microsoft MVP, Voitanos)@andrewconnell          |
-| QA                   | Julie Turner (Microsoft MVP, Sympraxis 咨询)@juliemturner |
-| 承办人/支持    | Yina Arenas (Microsoft)@yinaa                                   |
+| 实验室手册/幻灯片 | Andrew Connell (Microsoft MVP, Voitanos) @andrewconnell          |
+| QA                   | Julie Turner (Microsoft MVP, Sympraxis 咨询) @juliemturner |
+| 承办人/支持    | Yina Arenas (Microsoft) @yinaa                                   |
 
 ## <a name="version-history"></a>版本历史记录
 
