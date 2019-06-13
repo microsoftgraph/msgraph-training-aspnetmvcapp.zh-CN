@@ -4,7 +4,7 @@
 
 ## <a name="lab---build-mvc-apps-with-the-microsoft-graph-net-sdk"></a>使用 Microsoft Graph .NET SDK 生成 MVC 应用程序 (实验室)
 
-在此实验室中, 将创建一个 ASP.NET MVC 应用程序, 并使用 Microsoft Graph .NET SDK 访问 Office 365 中的数据, 并使用 Azure Active Directory (Azure AD) 进行身份验证 & 授权。
+在此实验室中, 将创建一个 ASP.NET MVC 应用程序, 并使用 Microsoft Graph .NET SDK 访问 Office 365 中的数据, 并使用 Azure Active Directory (Azure AD) 配置身份验证 & 授权。
 
 - [ASP.NET Microsoft Graph 教程](https://docs.microsoft.com/graph/training/aspnet-tutorial)
 
@@ -28,16 +28,18 @@
 
 ## <a name="contributors"></a>参与者
 
-|        角色         |                            作者 (s)                             |
-| -------------------- | ---------------------------------------------------------------- |
-| 实验室手册/幻灯片 | Andrew Connell (Microsoft MVP, Voitanos) @andrewconnell          |
-| QA                   | Julie Turner (Microsoft MVP, Sympraxis 咨询) @juliemturner |
-| 承办人/支持    | Yina Arenas (Microsoft) @yinaa                                   |
+| 角色                | 作者 (s)                                                                                     |
+| -------------------- | --------------------------------------------------------------------------------------------- |
+| 实验室手册/幻灯片 | Andrew Connell (Microsoft MVP, Voitanos) [@andrewconnell](//github.com/andrewconnell)         |
+| QA                   | 抢 Windsor (Microsoft MVP, PAIT Group) [@rob-Windsor](//github.com/rob-windsor)              |
+| QA                   | Julie Turner (Microsoft MVP, Sympraxis 咨询) [@juliemturner](//github.com/juliemturner) |
+| 承办人/支持    | Yina Arenas (Microsoft) [@yinaa](//github.com/yinaa)                                          |
 
 ## <a name="version-history"></a>版本历史记录
 
-| 版本 |        日期        |                       注释                       |
+| 版本 | 日期               | 注释                                             |
 | ------- | ------------------ | ---------------------------------------------------- |
+| 1.8     | 5月29日, 2018       | 2019Q4 内容刷新                               |
 | 1.7     | 2018年4月4日      | 2019Q3 内容刷新                               |
 | 1.6     | 2018年12月18日  | 2019Q2 内容刷新                               |
 | 1.5     | 2018 年 11 月 27 日  | 载入到 docs.microsoft.com/graph                |
@@ -49,6 +51,6 @@
 
 ## <a name="disclaimer"></a>免责声明
 
-**此代码*按*原样提供, 无需任何明示或暗示的担保, 包括对特定目的适用性、适销性或不侵权的任何暗示担保。**
+**此代码_按_原样提供, 无需任何明示或暗示的担保, 包括对特定目的适用性、适销性或不侵权的任何暗示担保。**
 
 <img src="https://telemetry.sharepointpnp.com/msgraph-training-aspnetmvcapp" />

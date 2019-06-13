@@ -43,21 +43,22 @@ private static GraphServiceClient GetAuthenticatedClient()
         new DelegateAuthenticationProvider(
             async (requestMessage) =>
             {
-                // Get the signed in user's id and create a token cache
-                string signedInUserId = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
-                SessionTokenStore tokenStore = new SessionTokenStore(signedInUserId,
-                    new HttpContextWrapper(HttpContext.Current));
+                var idClient = ConfidentialClientApplicationBuilder.Create(appId)
+                    .WithRedirectUri(redirectUri)
+                    .WithClientSecret(appSecret)
+                    .Build();
 
-                var idClient = new ConfidentialClientApplication(
-                    appId, redirectUri, new ClientCredential(appSecret),
-                    tokenStore.GetMsalCacheInstance(), null);
+                string signedInUserId = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var tokenStore = new SessionTokenStore(signedInUserId, HttpContext.Current);
+                tokenStore.Initialize(idClient.UserTokenCache);
 
                 var accounts = await idClient.GetAccountsAsync();
 
                 // By calling this here, the token can be refreshed
                 // if it's expired right before the Graph call is made
-                var result = await idClient.AcquireTokenSilentAsync(
-                    graphScopes.Split(' '), accounts.FirstOrDefault());
+                var scopes = graphScopes.Split(' ');
+                var result = await idClient.AcquireTokenSilent(scopes, accounts.FirstOrDefault())
+                    .ExecuteAsync();
 
                 requestMessage.Headers.Authorization =
                     new AuthenticationHeaderValue("Bearer", result.AccessToken);
@@ -67,15 +68,16 @@ private static GraphServiceClient GetAuthenticatedClient()
 
 考虑此代码执行的操作。
 
-- 函数使用调用`AcquireTokenSilentAsync`的身份验证提供程序初始化 a `GraphServiceClient` `GetAuthenticatedClient`
+- 函数使用调用`AcquireTokenSilent`的身份验证提供程序初始化 a `GraphServiceClient` `GetAuthenticatedClient`
 - 在`GetEventsAsync`函数中:
   - 将调用的 URL 为`/v1.0/me/events`。
   - `Select`函数将为每个事件返回的字段限制为仅供视图实际使用的字段。
   - `OrderBy`函数按其创建日期和时间对结果进行排序, 最新项目最先开始。
 
-现在, 为日历视图创建一个控制器。 右键单击 "解决方案资源管理器" 中的 "**控制器**" 文件夹, 然后选择 "**添加 > 控制器 .。。**"。选择 " **MVC 5 控制器-空**", 然后选择 "**添加**"。 命名控制器`CalendarController` , 然后选择 "**添加**"。 将新文件的全部内容替换为以下代码。
+现在, 为日历视图创建一个控制器。 右键单击 "解决方案资源管理器" 中的 "**控制器**" 文件夹, 然后选择 "**添加 > 控制器 ...**"。选择 " **MVC 5 控制器-空**", 然后选择 "**添加**"。 命名控制器`CalendarController` , 然后选择 "**添加**"。 将新文件的全部内容替换为以下代码。
 
 ```cs
+using System;
 using graph_tutorial.Helpers;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -89,6 +91,16 @@ namespace graph_tutorial.Controllers
         public async Task<ActionResult> Index()
         {
             var events = await GraphHelper.GetEventsAsync();
+
+            // Change start and end dates from UTC to local time
+            foreach (var ev in events)
+            {
+                ev.Start.DateTime = DateTime.Parse(ev.Start.DateTime).ToLocalTime().ToString();
+                ev.Start.TimeZone = TimeZoneInfo.Local.Id;
+                ev.End.DateTime = DateTime.Parse(ev.End.DateTime).ToLocalTime().ToString();
+                ev.End.TimeZone = TimeZoneInfo.Local.Id;
+            }
+
             return Json(events, JsonRequestBehavior.AllowGet);
         }
     }
@@ -99,7 +111,7 @@ namespace graph_tutorial.Controllers
 
 ## <a name="display-the-results"></a>显示结果
 
-现在, 您可以添加一个视图, 以对用户更友好的方式显示结果。 在 "解决方案资源管理器" 中, 右键单击 "**视图/日历**" 文件夹, 然后选择 "**添加 > 视图 .。。**"。为视图`Index`命名, 然后选择 "**添加**"。 将新文件的全部内容替换为以下代码。
+现在, 您可以添加一个视图, 以对用户更友好的方式显示结果。 在 "解决方案资源管理器" 中, 右键单击 "**视图/日历**" 文件夹, 然后选择 "**添加 > 视图 ...**"。为视图`Index`命名, 然后选择 "**添加**"。 将新文件的全部内容替换为以下代码。
 
 ```html
 @model IEnumerable<Microsoft.Graph.Event>
