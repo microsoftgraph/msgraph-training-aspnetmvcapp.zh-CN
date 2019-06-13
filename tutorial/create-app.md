@@ -1,8 +1,8 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-打开 Visual Studio, 然后选择 " **File _GT_ New _GT_ Project**"。 在 "**新建项目**" 对话框中, 执行以下操作:
+打开 Visual Studio, 然后选择 "**文件" > "新建 > 项目**"。 在 "**新建项目**" 对话框中, 执行以下操作:
 
-1. 在**Visual c # _GT_ Web**中选择 "模板 >"。
+1. **> Visual c # > Web**中选择 "模板"。
 1. 选择 " **ASP.NET Web 应用程序 (.Net Framework)**"。
 1. 输入**graph-** 项目名称教程。
 
@@ -13,7 +13,7 @@
 
 选择“确定”****。 在 "**新建 ASP.NET Web 应用程序项目**" 对话框中, 选择 " **MVC** " (在 " **ASP.NET 4.7.2 模板**" 下) 并选择 **"确定"**。
 
-按**F5**或选择 "**调试" _GT_ "开始调试**"。 如果一切正常, 则默认浏览器应打开并显示一个默认的 ASP.NET 页面。
+按**F5**或选择 "**调试" > "开始调试**"。 如果一切正常, 则默认浏览器应打开并显示一个默认的 ASP.NET 页面。
 
 在继续之前, 请更新`bootstrap` NuGet 包, 并安装稍后将使用的一些其他 NuGet 包。
 
@@ -23,15 +23,15 @@
 - 用于请求和管理访问令牌的 " [Microsoft 身份" 客户端](https://www.nuget.org/packages/Microsoft.Identity.Client/)。
 - 用于调用 Microsoft Graph 的[microsoft](https://www.nuget.org/packages/Microsoft.Graph/) graph。
 
-选择 "**工具 _GT_ NuGet 包管理器 _GT_ 程序包管理器控制台**"。 在 "程序包管理器控制台" 中, 输入以下命令。
+选择 "**工具" > NuGet 包管理器 "> 程序包管理器控制台**"。 在 "程序包管理器控制台" 中, 输入以下命令。
 
 ```Powershell
 Update-Package bootstrap
 Install-Package Microsoft.Owin.Host.SystemWeb
 Install-Package Microsoft.Owin.Security.OpenIdConnect
 Install-Package Microsoft.Owin.Security.Cookies
-Install-Package Microsoft.Identity.Client -Version 2.7.0
-Install-Package Microsoft.Graph -Version 1.11.0
+Install-Package Microsoft.Identity.Client -Version 3.0.8
+Install-Package Microsoft.Graph -Version 1.15.0
 ```
 
 创建一个基本的 OWIN startup 类。 右键单击 "解决方案`graph-tutorial`资源管理器" 中的文件夹, 然后选择 "**添加 > 新项**"。 选择 " **OWIN" 启动类**模板, 命名该`Startup.cs`文件, 然后选择 "**添加**"。
@@ -40,7 +40,7 @@ Install-Package Microsoft.Graph -Version 1.11.0
 
 首先, 为错误消息创建一个简单的模型。 您将使用此模型在应用程序的视图中闪烁错误消息。
 
-右键单击 "解决方案资源管理器" 中的 "**模型**" 文件夹, 然后选择 "**添加 > 类 .。。**"。命名该类`Alert` , 然后选择 "**添加**"。 在中`Alert.cs`添加以下代码。
+右键单击 "解决方案资源管理器" 中的 "**模型**" 文件夹, 然后选择 "**添加 > 类 ...**"。命名该类`Alert` , 然后选择 "**添加**"。 在中`Alert.cs`添加以下代码。
 
 ```cs
 namespace graph_tutorial.Models
@@ -197,7 +197,7 @@ body {
 
 现在, 添加一个 helper 函数来创建`Alert`并将其传递到视图。 为使我们创建的任何控制器易于使用, 请定义一个基本控制器类。
 
-右键单击 "解决方案资源管理器" 中的 "**控制器**" 文件夹, 然后选择 "**添加 > 控制器 .。。**"。选择 " **MVC 5 控制器-空**", 然后选择 "**添加**"。 命名控制器`BaseController` , 然后选择 "**添加**"。 用以下代码替换 `BaseController.cs` 的内容。
+右键单击 "解决方案资源管理器" 中的 "**控制器**" 文件夹, 然后选择 "**添加 > 控制器 ...**"。选择 " **MVC 5 控制器-空**", 然后选择 "**添加**"。 命名控制器`BaseController` , 然后选择 "**添加**"。 用以下代码替换 `BaseController.cs` 的内容。
 
 ```cs
 using graph_tutorial.Models;
