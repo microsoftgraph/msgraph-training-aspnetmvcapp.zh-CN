@@ -24,7 +24,7 @@
 
 ## <a name="watch-the-module"></a>观看模块
 
-此模块已记录并在 Office 开发 YouTube 频道中可用:[使用 Microsoft Graph .NET SDK 生成 MVC 应用](https://youtu.be/87_gpuFg1Wo)
+此模块已记录并在 Office 开发 YouTube 频道中可用:[使用 Microsoft Graph .NET SDK 生成 MVC 应用](https://youtu.be/a2teHZ5WuNc)
 
 ## <a name="contributors"></a>参与者
 
@@ -37,8 +37,9 @@
 
 ## <a name="version-history"></a>版本历史记录
 
-| 版本 | 日期               | 注释                                             |
+| 版本 |        日期        |                       注释                       |
 | ------- | ------------------ | ---------------------------------------------------- |
+| 1.9     | 2019年6月18日      | 更新了用于刷新截屏视频录制的自述文件     |
 | 1.8     | 5月29日, 2018       | 2019Q4 内容刷新                               |
 | 1.7     | 2018年4月4日      | 2019Q3 内容刷新                               |
 | 1.6     | 2018年12月18日  | 2019Q2 内容刷新                               |
