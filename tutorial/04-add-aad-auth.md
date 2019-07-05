@@ -8,7 +8,7 @@
     <appSettings>
         <add key="ida:AppID" value="YOUR APP ID" />
         <add key="ida:AppSecret" value="YOUR APP PASSWORD" />
-        <add key="ida:RedirectUri" value="http://localhost:PORT/" />
+        <add key="ida:RedirectUri" value="https://localhost:PORT/" />
         <add key="ida:AppScopes" value="User.Read Calendars.Read" />
     </appSettings>
     ```
@@ -142,7 +142,8 @@
     }
     ```
 
-    此代码使用中`PrivateSettings.config`的值配置 OWIN 中间件, `OnAuthenticationFailedAsync`并定义两个回调方法`OnAuthorizationCodeReceivedAsync`和。 当登录进程从 Azure 返回时, 将调用这些回调方法。
+    > [!NOTE]
+    > 此代码使用中`PrivateSettings.config`的值配置 OWIN 中间件, `OnAuthenticationFailedAsync`并定义两个回调方法`OnAuthorizationCodeReceivedAsync`和。 当登录进程从 Azure 返回时, 将调用这些回调方法。
 
 1. 现在, 更新`Startup.cs`文件以调用`ConfigureAuth`方法。 将整个内容`Startup.cs`替换为以下代码。
 
@@ -293,6 +294,9 @@
 1. 右键单击此新文件夹, 然后选择 "**添加 > 类 ...**"。命名该文件`SessionTokenStore.cs` , 然后选择 "**添加**"。 将此文件的内容替换为以下代码。
 
     ```cs
+    // Copyright (c) Microsoft Corporation. All rights reserved.
+    // Licensed under the MIT license.
+
     using Microsoft.Identity.Client;
     using Newtonsoft.Json;
     using System.Security.Claims;
@@ -309,83 +313,117 @@
             public string Avatar { get; set; }
         }
 
-        // Adapted from https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-v2
         public class SessionTokenStore
         {
             private static readonly ReaderWriterLockSlim sessionLock = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
 
-            private readonly string userId = string.Empty;
-            private readonly string cacheId = string.Empty;
-            private readonly string cachedUserId = string.Empty;
             private HttpContext httpContext = null;
-            private ITokenCache tokenCache;
+            private string tokenCacheKey = string.Empty;
+            private string userCacheKey = string.Empty;
 
-            public SessionTokenStore(string userId, HttpContext httpcontext)
+            public SessionTokenStore(ITokenCache tokenCache, HttpContext context, ClaimsPrincipal user)
             {
-                this.userId = userId;
-                this.cacheId = $"{userId}_TokenCache";
-                this.cachedUserId = $"{userId}_UserCache";
-                this.httpContext = httpcontext;
-            }
+                httpContext = context;
 
-            public void Initialize(ITokenCache tokenCache)
-            {
-                this.tokenCache = tokenCache;
-                this.tokenCache.SetBeforeAccess(BeforeAccessNotification);
-                this.tokenCache.SetAfterAccess(AfterAccessNotification);
-                Load();
+                if (tokenCache != null)
+                {
+                    tokenCache.SetBeforeAccess(BeforeAccessNotification);
+                    tokenCache.SetAfterAccess(AfterAccessNotification);
+                }
+
+                var userId = GetUsersUniqueId(user);
+                tokenCacheKey = $"{userId}_TokenCache";
+                userCacheKey = $"{userId}_UserCache";
             }
 
             public bool HasData()
             {
-                return (httpContext.Session[cacheId] != null && ((byte[])httpContext.Session[cacheId]).Length > 0);
+                return (httpContext.Session[tokenCacheKey] != null &&
+                    ((byte[])httpContext.Session[tokenCacheKey]).Length > 0);
             }
 
             public void Clear()
             {
-                httpContext.Session.Remove(cacheId);
-            }
+                sessionLock.EnterWriteLock();
 
-            private void Load()
-            {
-                sessionLock.EnterReadLock();
-                tokenCache.DeserializeMsalV3((byte[])httpContext.Session[cacheId]);
-                sessionLock.ExitReadLock();
-            }
-
-            private void Persist()
-            {
-                sessionLock.EnterReadLock();
-                httpContext.Session[cacheId] = tokenCache.SerializeMsalV3();
-                sessionLock.ExitReadLock();
+                try
+                {
+                    httpContext.Session.Remove(tokenCacheKey);
+                }
+                finally
+                {
+                    sessionLock.ExitWriteLock();
+                }
             }
 
             private void BeforeAccessNotification(TokenCacheNotificationArgs args)
             {
-                Load();
+                sessionLock.EnterReadLock();
+
+                try
+                {
+                    // Load the cache from the session
+                    args.TokenCache.DeserializeMsalV3((byte[])httpContext.Session[tokenCacheKey]);
+                }
+                finally
+                {
+                    sessionLock.ExitReadLock();
+                }
             }
 
             private void AfterAccessNotification(TokenCacheNotificationArgs args)
             {
                 if (args.HasStateChanged)
                 {
-                    Persist();
+                    sessionLock.EnterWriteLock();
+
+                    try
+                    {
+                        // Store the serialized cache in the session
+                        httpContext.Session[tokenCacheKey] = args.TokenCache.SerializeMsalV3();
+                    }
+                    finally
+                    {
+                        sessionLock.ExitWriteLock();
+                    }
                 }
             }
 
             public void SaveUserDetails(CachedUser user)
             {
-                sessionLock.EnterReadLock();
-                httpContext.Session[cachedUserId] = JsonConvert.SerializeObject(user);
-                sessionLock.ExitReadLock();
+
+                sessionLock.EnterWriteLock();
+                httpContext.Session[userCacheKey] = JsonConvert.SerializeObject(user);
+                sessionLock.ExitWriteLock();
             }
 
             public CachedUser GetUserDetails()
             {
                 sessionLock.EnterReadLock();
-                var cachedUser = JsonConvert.DeserializeObject<CachedUser>((string)httpContext.Session[cachedUserId]);
+                var cachedUser = JsonConvert.DeserializeObject<CachedUser>((string)httpContext.Session[userCacheKey]);
                 sessionLock.ExitReadLock();
                 return cachedUser;
+            }
+
+            private string GetUsersUniqueId(ClaimsPrincipal user)
+            {
+                // Combine the user's object ID with their tenant ID
+
+                if (user != null)
+                {
+                    var userObjectId = user.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value ??
+                        user.FindFirst("oid").Value;
+
+                    var userTenantId = user.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value ??
+                        user.FindFirst("tid").Value;
+
+                    if (!string.IsNullOrEmpty(userObjectId) && !string.IsNullOrEmpty(userTenantId))
+                    {
+                        return $"{userObjectId}.{userTenantId}";
+                    }
+                }
+
+                return null;
             }
         }
     }
@@ -395,7 +433,6 @@
 
     ```cs
     using graph_tutorial.TokenStorage;
-    using System.IdentityModel.Claims;
     ```
 
 1. 将现有的 `OnAuthorizationCodeReceivedAsync` 函数替换为以下内容。
@@ -408,9 +445,8 @@
             .WithClientSecret(appSecret)
             .Build();
 
-        var signedInUserId = notification.AuthenticationTicket.Identity.FindFirst(ClaimTypes.NameIdentifier).Value;
-        var tokenStore = new SessionTokenStore(signedInUserId, HttpContext.Current);
-        tokenStore.Initialize(idClient.UserTokenCache);
+        var signedInUser = new ClaimsPrincipal(notification.AuthenticationTicket.Identity);
+        var tokenStore = new SessionTokenStore(idClient.UserTokenCache, HttpContext.Current, signedInUser);
 
         try
         {
@@ -466,8 +502,8 @@
     {
         if (Request.IsAuthenticated)
         {
-            string signedInUserId = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
-            SessionTokenStore tokenStore = new SessionTokenStore(signedInUserId, System.Web.HttpContext.Current);
+            var tokenStore = new SessionTokenStore(null,
+                System.Web.HttpContext.Current, ClaimsPrincipal.Current);
 
             tokenStore.Clear();
 
@@ -495,9 +531,9 @@
     {
         if (Request.IsAuthenticated)
         {
-            // Get the signed in user's id and create a token cache
-            string signedInUserId = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
-            SessionTokenStore tokenStore = new SessionTokenStore(signedInUserId, System.Web.HttpContext.Current);
+            // Get the user's token cache
+            var tokenStore = new SessionTokenStore(null,
+                System.Web.HttpContext.Current, ClaimsPrincipal.Current);
 
             if (tokenStore.HasData())
             {
@@ -531,4 +567,4 @@
 
 但是, 此令牌的生存期较短。 令牌在发出后会过期一小时。 这就是刷新令牌变得有用的地方。 刷新令牌允许应用在不要求用户重新登录的情况下请求新的访问令牌。
 
-由于应用程序使用的是 MSAL 库和`TokenCache`对象, 因此您无需实现任何令牌刷新逻辑。 此`ConfidentialClientApplication.AcquireTokenSilentAsync`方法将为您执行所有逻辑。 它首先检查缓存的令牌, 如果它未过期, 它将返回。 如果它已过期, 则使用缓存的刷新令牌获取新的。 您将在下面的模块中使用此方法。
+由于应用程序使用的是 MSAL 库并将`TokenCache`对象序列化, 因此您无需实现任何令牌刷新逻辑。 此`ConfidentialClientApplication.AcquireTokenSilentAsync`方法将为您执行所有逻辑。 它首先检查缓存的令牌, 如果它未过期, 它将返回。 如果它已过期, 则使用缓存的刷新令牌获取新的。 您将在下面的模块中使用此方法。

@@ -2,7 +2,7 @@
 
 在本练习中, 你将使用 Azure Active Directory 管理中心创建新的 Azure AD web 应用程序注册。
 
-1. 确定 ASP.NET 应用的 URL。 在 Visual Studio 的 "解决方案资源管理器" 中, 选择 "**绘图教程**" 项目。 在“属性”**** 窗口中，查找“URL”**** 值。 复制此值。
+1. 确定您的 ASP.NET 应用程序的 SSL URL。 在 Visual Studio 的 "解决方案资源管理器" 中, 选择 "**绘图教程**" 项目。 在 "**属性**" 窗口中, 找到 " **SSL URL**" 的值。 复制此值。
 
     ![Visual Studio 的 "属性" 窗口的屏幕截图](./images/vs-project-url.png)
 

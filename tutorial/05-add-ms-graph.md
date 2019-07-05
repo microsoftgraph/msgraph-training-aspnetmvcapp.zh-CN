@@ -50,9 +50,8 @@
                         .WithClientSecret(appSecret)
                         .Build();
 
-                    string signedInUserId = ClaimsPrincipal.Current.FindFirst(ClaimTypes.NameIdentifier).Value;
-                    var tokenStore = new SessionTokenStore(signedInUserId, HttpContext.Current);
-                    tokenStore.Initialize(idClient.UserTokenCache);
+                    var tokenStore = new SessionTokenStore(idClient.UserTokenCache,
+                            HttpContext.Current, ClaimsPrincipal.Current);
 
                     var accounts = await idClient.GetAccountsAsync();
 
@@ -80,8 +79,8 @@
 1. 为日历视图创建一个控制器。 右键单击 "解决方案资源管理器" 中的 "**控制器**" 文件夹, 然后选择 "**添加 > 控制器 ...**"。选择 " **MVC 5 控制器-空**", 然后选择 "**添加**"。 命名控制器`CalendarController`并选择 "**添加**"。 将新文件的全部内容替换为以下代码。
 
     ```cs
-    using System;
     using graph_tutorial.Helpers;
+    using System;
     using System.Threading.Tasks;
     using System.Web.Mvc;
 

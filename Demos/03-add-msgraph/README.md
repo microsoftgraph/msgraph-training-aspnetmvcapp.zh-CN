@@ -4,7 +4,7 @@
 
 若要在此文件夹中运行已完成的项目, 您需要以下各项:
 
-- 在开发计算机上安装的[Visual Studio](https://visualstudio.microsoft.com/vs/) 。 如果没有 Visual Studio, 请访问 "下载选项" 的上一个链接。 (**注意:** 本教程是使用 Visual Studio 2017 版本15.81 编写的。 本指南中的步骤可能适用于其他版本, 但尚未经过测试。
+- 在开发计算机上安装的[Visual Studio](https://visualstudio.microsoft.com/vs/) 。 如果没有 Visual Studio, 请访问 "下载选项" 的上一个链接。 (**注意:** 本教程是使用 Visual Studio 2019 版本16.1.4 编写的。 本指南中的步骤可能适用于其他版本, 但尚未经过测试。
 - 使用 Outlook.com 上的邮箱的个人 Microsoft 帐户, 或者是 Microsoft 工作或学校帐户。
 
 如果你没有 Microsoft 帐户, 可以使用以下几种方法获取免费帐户:
@@ -14,7 +14,7 @@
 
 ## <a name="register-a-web-application-with-the-azure-active-directory-admin-center"></a>向 Azure Active Directory 管理中心注册 web 应用程序
 
-1. 确定您的 ASP.NET 应用程序的 URL。 在 Visual Studio 的 "解决方案资源管理器" 中, 选择 "**绘图教程**" 项目。 在“属性”**** 窗口中，查找“URL”**** 值。 复制此值。
+1. 确定您的 ASP.NET 应用程序的 SSL URL。 在 Visual Studio 的 "解决方案资源管理器" 中, 选择 "**绘图教程**" 项目。 在 "**属性**" 窗口中, 找到 " **SSL URL**" 的值。 复制此值。
 
     ![Visual Studio 的 "属性" 窗口的屏幕截图](/tutorial/images/vs-project-url.png)
 
@@ -57,7 +57,6 @@
 1. 编辑`PrivateSettings.config`文件并进行以下更改。
     1. 将`YOUR_APP_ID_HERE`替换为你从应用注册门户获取的**应用程序 Id** 。
     1. 将`YOUR_APP_PASSWORD_HERE`替换为你从应用注册门户获取的**应用程序密码**。
-    1. 将`PORT`替换为包含在 ASP.NET 应用程序 URL 中的端口号。
 1. 在`graph-tutorial.sln` Visual Studio 中打开。 在 "解决方案资源管理器" 中, 右键单击**graph 教程**解决方案并选择 "**还原 NuGet 包**"。
 
 ## <a name="run-the-sample"></a>运行示例
