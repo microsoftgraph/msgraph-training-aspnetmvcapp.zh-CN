@@ -2,28 +2,28 @@
 
 首先创建 ASP.NET MVC 项目。
 
-1. 打开 Visual Studio, 然后选择 "**新建项目**"。
+1. 打开 Visual Studio，然后选择 "**新建项目**"。
 
-1. 在 "**新建项目**" 对话框中, 选择使用 c # 的**ASP.NET Web 应用程序 (.net Framework)** 选项, 然后选择 "**下一步**"。
+1. 在 "**新建项目**" 对话框中，选择使用 c # 的**ASP.NET Web 应用程序（.net Framework）** 选项，然后选择 "**下一步**"。
 
     ![Visual Studio 2019 "新建项目" 对话框](./images/vs-create-new-project.png)
 
-1. 在`graph-tutorial` "**项目名称**" 字段中输入, 然后选择 "**创建**"。
+1. 在`graph-tutorial` "**项目名称**" 字段中输入，然后选择 "**创建**"。
 
     ![Visual Studio 2019 配置新项目对话框](./images/vs-configure-new-project.png)
 
     > [!NOTE]
-    > 确保为在这些实验室说明中指定的 Visual Studio 项目输入完全相同的名称。 Visual Studio 项目名称将成为代码中的命名空间的一部分。 这些指令中的代码取决于与这些说明中指定的 Visual Studio 项目名称匹配的命名空间。 如果使用其他项目名称, 则代码将不会编译, 除非您调整所有命名空间以匹配您在创建项目时输入的 Visual Studio 项目名称。
+    > 确保为在这些实验室说明中指定的 Visual Studio 项目输入完全相同的名称。 Visual Studio 项目名称将成为代码中的命名空间的一部分。 这些指令中的代码取决于与这些说明中指定的 Visual Studio 项目名称匹配的命名空间。 如果使用其他项目名称，则代码将不会编译，除非您调整所有命名空间以匹配您在创建项目时输入的 Visual Studio 项目名称。
 
 1. 选择 " **MVC** " 并选择 "**创建**"。
 
     ![Visual Studio 2019 创建新的 ASP.NET web 应用程序对话框](./images/vs-create-new-asp-app.png)
 
-1. 按**F5**或选择 "**调试" > "开始调试**"。 如果一切正常, 则默认浏览器应打开并显示一个默认的 ASP.NET 页面。
+1. 按**F5**或选择 "**调试" > "开始调试**"。 如果一切正常，则默认浏览器应打开并显示一个默认的 ASP.NET 页面。
 
 ## <a name="add-nuget-packages"></a>添加 NuGet 包
 
-在继续之前, 请更新`bootstrap` NuGet 包, 并安装稍后将使用的一些其他 NuGet 包。
+在继续之前，请更新`bootstrap` NuGet 包，并安装稍后将使用的一些其他 NuGet 包。
 
 - [Owin](https://www.nuget.org/packages/Microsoft.Owin.Host.SystemWeb/)在 ASP.NET 应用程序中启用[Owin](http://owin.org/)接口的 SystemWeb。
 - [Owin](https://www.nuget.org/packages/Microsoft.Owin.Security.OpenIdConnect/)用于执行与 Azure 的 OpenID 连接身份验证的 OpenIdConnect。
@@ -32,24 +32,24 @@
 - 用于调用 Microsoft Graph 的[microsoft](https://www.nuget.org/packages/Microsoft.Graph/) graph。
 
 1. 选择 "**工具" > NuGet 包管理器 "> 程序包管理器控制台**"。
-1. 在 "程序包管理器控制台" 中, 输入以下命令。
+1. 在 "程序包管理器控制台" 中，输入以下命令。
 
     ```Powershell
     Update-Package bootstrap
     Install-Package Microsoft.Owin.Host.SystemWeb
     Install-Package Microsoft.Owin.Security.OpenIdConnect
     Install-Package Microsoft.Owin.Security.Cookies
-    Install-Package Microsoft.Identity.Client -Version 4.0.0
-    Install-Package Microsoft.Graph -Version 1.15.0
+    Install-Package Microsoft.Identity.Client -Version 4.3.1
+    Install-Package Microsoft.Graph -Version 1.17.0
     ```
 
 ## <a name="design-the-app"></a>设计应用程序
 
-在本节中, 您将创建应用程序的基本结构。
+在本节中，您将创建应用程序的基本结构。
 
-1. 创建一个基本的 OWIN startup 类。 在 "解决方案资源`graph-tutorial`管理器" 中右键单击该文件夹, 然后选择 "**添加 > 新项**"。 选择 " **OWIN" 启动类**模板, 命名该`Startup.cs`文件, 然后选择 "**添加**"。
+1. 创建一个基本的 OWIN startup 类。 在 "解决方案资源`graph-tutorial`管理器" 中右键单击该文件夹，然后选择 "**添加 > 新项**"。 选择 " **OWIN" 启动类**模板，命名该`Startup.cs`文件，然后选择 "**添加**"。
 
-1. 右键单击 "解决方案资源管理器" 中的 "**模型**" 文件夹, 然后选择 "**添加 > 类 ...**"。命名该类`Alert`并选择 "**添加**"。 将整个内容`Alert.cs`替换为以下代码。
+1. 右键单击 "解决方案资源管理器" 中的 "**模型**" 文件夹，然后选择 "**添加 > 类 ...**"。命名该类`Alert`并选择 "**添加**"。 将整个内容`Alert.cs`替换为以下代码。
 
     ```cs
     namespace graph_tutorial.Models
@@ -64,7 +64,7 @@
     }
     ```
 
-1. 打开`./Views/Shared/_Layout.cshtml`文件, 并将其全部内容替换为以下代码, 以更新应用程序的全局布局。
+1. 打开`./Views/Shared/_Layout.cshtml`文件，并将其全部内容替换为以下代码，以更新应用程序的全局布局。
 
     ```html
     @{
@@ -168,7 +168,7 @@
     ```
 
     > [!NOTE]
-    > 此代码添加简单样式的[引导](https://getbootstrap.com/), 并添加一些简单图标的[字体](https://fontawesome.com/)。 它还使用导航栏定义全局布局, 并使用`Alert`类来显示任何警报。
+    > 此代码添加简单样式的[引导](https://getbootstrap.com/)，并添加一些简单图标的[字体](https://fontawesome.com/)。 它还使用导航栏定义全局布局，并使用`Alert`类来显示任何警报。
 
 1. 打开`Content/Site.css`并将其全部内容替换为以下代码。
 
@@ -184,7 +184,7 @@
     }
     ```
 
-1. 打开`Views/Home/index.cshtml`文件, 并将其内容替换为以下内容。
+1. 打开`Views/Home/index.cshtml`文件，并将其内容替换为以下内容。
 
     ```html
     @{
@@ -206,7 +206,7 @@
     </div>
     ```
 
-1. 右键单击 "解决方案资源管理器" 中的 "**控制器**" 文件夹, 然后选择 "**添加 > 控制器 ...**"。选择 " **MVC 5 控制器-空**", 然后选择 "**添加**"。 命名控制器`BaseController`并选择 "**添加**"。 用以下代码替换 `BaseController.cs` 的内容。
+1. 右键单击 "解决方案资源管理器" 中的 "**控制器**" 文件夹，然后选择 "**添加 > 控制器 ...**"。选择 " **MVC 5 控制器-空**"，然后选择 "**添加**"。 命名控制器`BaseController`并选择 "**添加**"。 用以下代码替换 `BaseController.cs` 的内容。
 
     ```cs
     using graph_tutorial.Models;
@@ -235,12 +235,12 @@
     }
     ```
 
-1. 打开`Controllers/HomeController.cs`并将`public class HomeController : Controller`行更改为:
+1. 打开`Controllers/HomeController.cs`并将`public class HomeController : Controller`行更改为：
 
     ```cs
     public class HomeController : BaseController
     ```
 
-1. 保存所有更改, 然后重新启动服务器。 现在, 应用程序看起来应非常不同。
+1. 保存所有更改，然后重新启动服务器。 现在，应用程序看起来应非常不同。
 
     ![重新设计的主页的屏幕截图](./images/create-app-01.png)
